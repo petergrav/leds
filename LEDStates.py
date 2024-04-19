@@ -19,21 +19,21 @@ num_pixels = 300
 ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=1, auto_write=False, pixel_order=ORDER
+    pixel_pin, num_pixels, auto_write=True, pixel_order=ORDER
 )
 
 def off():
+    pixels.brightness = 0
     pixels.fill((0, 0, 0))
-    pixels.show()
 
 def green():
+    pixels.brightness = 0.8
     pixels.fill((0, 255, 0))
-    pixels.show()
 
 def red():
+    pixels.brightness = 0.5
     pixels.fill((255, 0, 0))
-    pixels.show()
 
 def blue():
+    pixels.brightness = 0.5
     pixels.fill((0, 0, 255))
-    pixels.show()
