@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
-import neopixeltest
-import neopixelEBO
+import LEDStates
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -13,13 +12,13 @@ def on_connect(client, userdata, flags, reason_code, properties):
 def on_message(client, userdata, msg):
     print(int(msg.payload))
     if (int(msg.payload)) == 1 :
-        neopixelEBO.green()
+        LEDStates.green()
     if (int(msg.payload)) == 2 :
-        neopixelEBO.red()
+        LEDStates.red()
     if (int(msg.payload)) == 3 :
-        neopixelEBO.blue()
+        LEDStates.blue()
     if (int(msg.payload)) == 0 :
-        neopixelEBO.off()
+        LEDStates.off()
 
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqttc.on_connect = on_connect
