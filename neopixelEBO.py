@@ -26,4 +26,14 @@ def off():
     pixels.fill((0, 0, 0))
     pixels.show()
 
+def green():
+    pixels.fill((0, 255, 0))
+    pixels.show()
 
+def red():
+    pixels.fill((255, 0, 0))
+    pixels.show()
+
+def blue():
+    pixels.fill((0, 0, 255))
+    pixels.show()

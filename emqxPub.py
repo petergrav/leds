@@ -7,7 +7,7 @@ import time
 from paho.mqtt import client as mqtt_client
 
 
-broker = '127.0.0.1'
+broker = '10.169.84.20'
 port = 1883
 topic = "testTopic"
 # Generate a Client ID with the publish prefix.
