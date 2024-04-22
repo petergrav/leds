@@ -43,11 +43,12 @@ if __name__ == "__main__":
     pixel_pin = board.D18
     np = NeoPixel(pixel_pin, MY_STRIP_LEN)
     print("range 1")
-    #neo_range( np,(20,0,0), 0, MY_STRIP_LEN // 2)
+    neo_range( np,(0,255,0), 85, 125)
     print("range 2")
-    #neo_range( np, (20,0,20), MY_STRIP_LEN // 2, MY_STRIP_LEN)
+    neo_range( np, (0,255,0), 225, 265)
     print("sparkle")
     neo_sparkle(np, (200,200,200), 0.1, 30)
     print("sweep " + str(len(np)))
-    #neo_sweep(np, (0,200,0), 10, 0.1)
+    neo_sweep(np, (255,0,0), 10, 0)
     np.show()
+    
