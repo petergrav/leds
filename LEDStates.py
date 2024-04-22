@@ -26,10 +26,11 @@ def off():
     pixels.brightness = 0
     pixels.fill((0, 0, 0))
 
+
 def green():
     pixels.brightness = 0.8
     pixels.fill((0, 255, 0))
-
+    pixels.show()
 def red():
     pixels.brightness = 0.5
     pixels.fill((255, 0, 0))
