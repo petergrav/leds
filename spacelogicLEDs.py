@@ -1,5 +1,9 @@
 import paho.mqtt.client as mqtt
 import LEDStates
+import neofuncs
+import board
+from neopixel import NeoPixel
+import adafruit_led_animation.color as color
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -10,15 +14,26 @@ def on_connect(client, userdata, flags, reason_code, properties):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+   # MY_STRIP_LEN = 300
+   # pixel_pin = board.D18
+   # np = NeoPixel(pixel_pin, MY_STRIP_LEN)
     print(int(msg.payload))
-    if (int(msg.payload)) == 1 :
-        LEDStates.green()
-    if (int(msg.payload)) == 2 :
-        LEDStates.red()
-    if (int(msg.payload)) == 3 :
-        LEDStates.blue()
     if (int(msg.payload)) == 0 :
-        LEDStates.off()
+        neofuncs.neo_off()
+    if (int(msg.payload)) == 1 :
+        neofuncs.neo_range(color.GREEN, 80, 120)
+        neofuncs.neo_range(color.GREEN, 225, 265)
+    if (int(msg.payload)) == 2 :
+        neofuncs.neo_fill((color.RED))
+    if (int(msg.payload)) == 3 :
+        neofuncs.neo_fill((color.BLUE))
+    if (int(msg.payload)) == 4 :
+        neofuncs.neo_sparkle((color.WHITE), 0.1, 30)
+    if (int(msg.payload)) == 5 :
+        neofuncs.neo_sweep((color.RED), 10, 0)
+    if (int(msg.payload)) == 6 :
+        neofuncs.neo_flash((color.RED), 120, 160, 1, 1, 10)
+    
 
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqttc.on_connect = on_connect
