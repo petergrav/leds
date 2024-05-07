@@ -35,17 +35,17 @@ def neo_sparkle(color, duration, count):
 
 def neo_flash(color, range_start, range_end, on_time, off_time, count):
     np.brightness = 1
-    bkgnd = []
-    for i in range(range_start, range_end):
-        bkgnd.append(i) == np[i]
-    for i in count:
-        np.fill(color, range_start, (range_end-range_start))
+    #bkgnd = []
+    #for i in range(range_start, range_end):
+    #    bkgnd.append(i) == np[i]
+    for i in range(count):
+        neo_range(color, range_start, range_end)
         np.show()
         time.sleep(on_time)
-        np.fill(bkgnd, range_start, (range_end-range_start))
+        neo_range((0,0,0), range_start, range_end)
         np.show()
         time.sleep(off_time)
-    np.show()
+    #np.show()
 
 
 def neo_sweep(color, width, duration):

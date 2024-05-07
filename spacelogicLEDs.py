@@ -32,7 +32,7 @@ def on_message(client, userdata, msg):
     if (int(msg.payload)) == 5 :
         neofuncs.neo_sweep((color.RED), 10, 0)
     if (int(msg.payload)) == 6 :
-        neofuncs.neo_flash((color.RED), 120, 160, 1, 1, 10)
+        neofuncs.neo_flash((color.RED), 225, 265, 0.1, 0.1, 10)
     
 
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
