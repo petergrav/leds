@@ -26,7 +26,7 @@ def on_message(client, userdata, msg):
     if (int(msg.payload)) == 2 :
         neofuncs.neo_fill((color.RED))
     if (int(msg.payload)) == 3 :
-        neofuncs.neo_fill((color.BLUE))
+        neofuncs.neo_fill((color.GREEN))
     if (int(msg.payload)) == 4 :
         neofuncs.neo_sparkle((color.WHITE), 0.1, 30)
     if (int(msg.payload)) == 5 :

@@ -6,7 +6,7 @@ from neopixel import NeoPixel
 import adafruit_led_animation.color as color
 import adafruit_led_animation
 
-MY_STRIP_LEN = 300
+MY_STRIP_LEN = 600
 pixel_pin = board.D18
 np = NeoPixel(pixel_pin, MY_STRIP_LEN, auto_write=False)
 
