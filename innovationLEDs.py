@@ -3,6 +3,19 @@ import logging
 import board
 import neofuncs
 import adafruit_led_animation.color as color
+from adafruit_led_animation.animation.solid import Solid
+from adafruit_led_animation.animation.colorcycle import ColorCycle
+from adafruit_led_animation.animation.blink import Blink
+from adafruit_led_animation.animation.comet import Comet
+from adafruit_led_animation.animation.chase import Chase
+from adafruit_led_animation.animation.pulse import Pulse
+from adafruit_led_animation.animation.rainbow import Rainbow
+from adafruit_led_animation.animation.rainbowchase import RainbowChase
+from adafruit_led_animation.animation.rainbowcomet import RainbowComet
+from adafruit_led_animation.animation.rainbowsparkle import RainbowSparkle
+from adafruit_led_animation.animation.sparkle import Sparkle
+from adafruit_led_animation.animation.sparklepulse import SparklePulse
+from adafruit_led_animation.sequence import AnimationSequence
 
 MY_STRIP_LEN = 60
 PIXEL_PIN = board.D18
@@ -44,14 +57,52 @@ def on_message(client, userdata, msg):
     
 
 if __name__ == "__main__":
-    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-    mqttc.on_connect = on_connect
-    mqttc.on_message = on_message
+    # mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    # mqttc.on_connect = on_connect
+    # mqttc.on_message = on_message
+    # mqttc.connect("10.169.84.20", 1883, 60)
+    # mqttc.loop_forever()
+    # import time
+    # neofuncs.neo_fill(PIXEL_PIN, MY_STRIP_LEN, color.GREEN)
+    # time.sleep(3)
+    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.01)
+    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.1)
+    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.01)
+    from neopixel import NeoPixel
+    import adafruit_led_animation.color as color
+    np = NeoPixel(PIXEL_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
 
-    mqttc.connect("10.169.84.20", 1883, 60)
+    solid = Solid(np, color=color.PINK)
+    blink = Blink(np, speed=0.5, color=color.JADE)
+    colorcycle = ColorCycle(np, speed=0.4, colors=[color.MAGENTA, color.ORANGE, color.TEAL])
+    chase = Chase(np, speed=0.1, color=color.WHITE, size=3, spacing=6)
+    comet = Comet(np, speed=0.01, color=color.PURPLE, tail_length=10, bounce=True)
+    pulse = Pulse(np, speed=0.1, color=color.AMBER, period=3)
+    rainbow = Rainbow(np, speed=0.1, period=2)
+    rainbow_chase = RainbowChase(np, speed=0.1, size=5, spacing=3)
+    rainbow_comet = RainbowComet(np, speed=0.03, tail_length=7, bounce=True)
+    rainbow_sparkle = RainbowSparkle(np, speed=0.1, num_sparkles=15)
+    sparkle = Sparkle(np, speed=0.05, color=color.AMBER, num_sparkles=10)
+    sparkle_pulse = SparklePulse(np, speed=0.05, period=3, color=color.JADE)
 
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a
-# manual interface.
-    mqttc.loop_forever()
+
+    animations = AnimationSequence(
+        solid,
+        blink,
+        colorcycle,
+        chase,
+        comet,
+        pulse,
+        rainbow,
+        rainbow_chase,
+        rainbow_comet,
+        rainbow_sparkle,
+        sparkle,
+        sparkle_pulse,
+        advance_interval=5,
+        auto_clear=True,
+    )
+
+    while True:
+        #animations.animate()
+        neofuncs.neo_off(PIXEL_PIN, MY_STRIP_LEN)
