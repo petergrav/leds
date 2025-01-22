@@ -3,6 +3,7 @@ import logging
 import board
 import neofuncs
 import adafruit_led_animation.color as color
+from neopixel import NeoPixel
 from adafruit_led_animation.animation.solid import Solid
 from adafruit_led_animation.animation.colorcycle import ColorCycle
 from adafruit_led_animation.animation.blink import Blink
@@ -17,8 +18,9 @@ from adafruit_led_animation.animation.sparkle import Sparkle
 from adafruit_led_animation.animation.sparklepulse import SparklePulse
 from adafruit_led_animation.sequence import AnimationSequence
 
-MY_STRIP_LEN = 60
-PIXEL_PIN = board.D18
+MY_STRIP_LEN = 565
+PI_PIN = board.D18
+#np = NeoPixel(PI_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
 
 logging.basicConfig(filename="innovationLEDs.log",
                     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -40,20 +42,21 @@ def on_connect(client, userdata, flags, reason_code, properties):
 def on_message(client, userdata, msg):
     log.info(f"Received message '{int(msg.payload)}'")
     if (int(msg.payload)) == 0 :
-        neofuncs.neo_off(PIXEL_PIN, MY_STRIP_LEN)
+        np = NeoPixel(PI_PIN, MY_STRIP_LEN, brightness=0, auto_write=False)
+        np.show()        
     if (int(msg.payload)) == 1 :
-        neofuncs.neo_range(PIXEL_PIN, MY_STRIP_LEN, color.GREEN, 10, 20)
-        neofuncs.neo_range(PIXEL_PIN, MY_STRIP_LEN, color.GREEN, 30, 40)
+        neofuncs.neo_range(PI_PIN, MY_STRIP_LEN, color.GREEN, 10, 20)
+        neofuncs.neo_range(PI_PIN, MY_STRIP_LEN, color.GREEN, 30, 40)
     if (int(msg.payload)) == 2 :
-        neofuncs.neo_fill(PIXEL_PIN, MY_STRIP_LEN, color.RED)
+        neofuncs.neo_fill(PI_PIN, MY_STRIP_LEN, color.RED)
     if (int(msg.payload)) == 3 :
-        neofuncs.neo_fill(PIXEL_PIN, MY_STRIP_LEN, color.GREEN)
+        neofuncs.neo_fill(PI_PIN, MY_STRIP_LEN, color.GREEN)
     if (int(msg.payload)) == 4 :
-        neofuncs.neo_sparkle(PIXEL_PIN, MY_STRIP_LEN, color.WHITE, 0.5, 30)
+        neofuncs.neo_sparkle(PI_PIN, MY_STRIP_LEN, color.WHITE, 0.5, 30)
     if (int(msg.payload)) == 5 :
-        neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 1)
+        neofuncs.neo_sweep(PI_PIN, MY_STRIP_LEN, color.RED, 5, 1)
     if (int(msg.payload)) == 6 :
-        neofuncs.neo_flash(PIXEL_PIN, MY_STRIP_LEN, color.RED, 30, 50, 0.1, 0.1, 10)
+        neofuncs.neo_flash(PI_PIN, MY_STRIP_LEN, color.RED, 30, 50, 0.1, 0.1, 10)
     
 
 if __name__ == "__main__":
@@ -62,17 +65,8 @@ if __name__ == "__main__":
     # mqttc.on_message = on_message
     # mqttc.connect("10.169.84.20", 1883, 60)
     # mqttc.loop_forever()
-    # import time
-    # neofuncs.neo_fill(PIXEL_PIN, MY_STRIP_LEN, color.GREEN)
-    # time.sleep(3)
-    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.01)
-    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.1)
-    # neofuncs.neo_sweep(PIXEL_PIN, MY_STRIP_LEN, color.RED, 5, 0.01)
-    from neopixel import NeoPixel
-    import adafruit_led_animation.color as color
-    np = NeoPixel(PIXEL_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
-
-    solid = Solid(np, color=color.PINK)
+    
+    solid = Solid(np, color=color.GREEN)
     blink = Blink(np, speed=0.5, color=color.JADE)
     colorcycle = ColorCycle(np, speed=0.4, colors=[color.MAGENTA, color.ORANGE, color.TEAL])
     chase = Chase(np, speed=0.1, color=color.WHITE, size=3, spacing=6)
@@ -102,7 +96,8 @@ if __name__ == "__main__":
         advance_interval=5,
         auto_clear=True,
     )
+    #animations = solid
 
     while True:
-        #animations.animate()
-        neofuncs.neo_off(PIXEL_PIN, MY_STRIP_LEN)
+        animations.animate()
+        #neofuncs.neo_off(PIXEL_PIN, MY_STRIP_LEN)
