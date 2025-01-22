@@ -18,9 +18,9 @@ from adafruit_led_animation.animation.sparkle import Sparkle
 from adafruit_led_animation.animation.sparklepulse import SparklePulse
 from adafruit_led_animation.sequence import AnimationSequence
 
-MY_STRIP_LEN = 565
-PI_PIN = board.D18
-#np = NeoPixel(PI_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
+MY_STRIP_LEN = 25 #565
+PI_PIN = board.D13
+np = NeoPixel(PI_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
 
 logging.basicConfig(filename="innovationLEDs.log",
                     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -82,19 +82,19 @@ if __name__ == "__main__":
 
     animations = AnimationSequence(
         solid,
-        blink,
-        colorcycle,
-        chase,
-        comet,
-        pulse,
-        rainbow,
-        rainbow_chase,
-        rainbow_comet,
-        rainbow_sparkle,
-        sparkle,
-        sparkle_pulse,
+        # blink,
+        # colorcycle,
+        # chase,
+        # comet,
+        # pulse,
+        # rainbow,
+        # rainbow_chase,
+        # rainbow_comet,
+        # rainbow_sparkle,
+        # sparkle,
+        # sparkle_pulse,
         advance_interval=5,
-        auto_clear=True,
+        auto_clear=False,
     )
     #animations = solid
 
