@@ -31,17 +31,17 @@ current_message = 0
 
 off = Solid(np, color=color.BLACK)
 solid = Solid(np, color=color.GREEN)
-blink = Blink(np, speed=0.5, color=color.RED)
-colorcycle = ColorCycle(np, speed=0.4, colors=[color.MAGENTA, color.ORANGE, color.TEAL])
-chase = Chase(np, speed=0.1, color=color.WHITE, size=3, spacing=6)
-comet = Comet(np, speed=0.01, color=color.PURPLE, tail_length=10, bounce=True)
-pulse = Pulse(np, speed=0.1, color=color.AMBER, period=3)
+blink = Blink(np, speed=0.5, color=color.GREEN)
+colorcycle = ColorCycle(np, speed=0.4, colors=color.RAINBOW)
+chase = Chase(np, speed=0.1, color=color.GREEN, size=3, spacing=6)
+comet = Comet(np, speed=10, color=color.PURPLE, tail_length=10, bounce=True)
+pulse = Pulse(np, speed=0.1, color=color.GREEN, period=3)
 rainbow = Rainbow(np, speed=0.1, period=2)
 rainbow_chase = RainbowChase(np, speed=0.1, size=5, spacing=3)
 rainbow_comet = RainbowComet(np, speed=0.03, tail_length=7, bounce=True)
 rainbow_sparkle = RainbowSparkle(np, speed=0.1, num_sparkles=15)
-sparkle = Sparkle(np, speed=0.05, color=color.AMBER, num_sparkles=10)
-sparkle_pulse = SparklePulse(np, speed=0.05, period=3, color=color.JADE)
+sparkle = Sparkle(np, speed=0.05, color=color.GREEN, num_sparkles=10)
+sparkle_pulse = SparklePulse(np, speed=0.05, period=3, color=color.GREEN)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, reason_code, properties):
