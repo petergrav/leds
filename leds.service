@@ -1,0 +1,12 @@
+[Unit]
+Description=LED Service
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/admin/leds
+ExecStart=sudo /home/admin/leds/.venv/bin/python /home/admin/leds/backAlleyLEDs.pythonKillSignal=SIGINT
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
