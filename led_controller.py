@@ -1,7 +1,7 @@
 import time
 from rpi_ws281x import PixelStrip, Color
 from neopixel import NeoPixel
-from adafruit_blinka import board
+import board
 from adafruit_led_animation.animation import Animation
 from adafruit_led_animation.animation.solid import Solid
 from adafruit_led_animation.animation.rainbow import Rainbow
@@ -9,7 +9,7 @@ from adafruit_led_animation.animation.chase import Chase
 from adafruit_led_animation.animation.comet import Comet
 
 # LED strip configuration
-LED_COUNT = 60        # Number of LED pixels
+LED_COUNT = 26        # Number of LED pixels
 LED_PIN = 18         # GPIO pin connected to the pixels (18 uses PWM)
 LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800kHz)
 LED_DMA = 10          # DMA channel to use for generating signal
@@ -23,7 +23,6 @@ class LEDController:
         self.strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         self.strip.begin()
         self.neopixel = NeoPixel(board.D18, LED_COUNT, brightness=1.0, auto_write=False)
-        
         # Animation definitions
         self.animation_types = {
             "off": lambda pixels: Solid(pixels, color=(0, 0, 0)),
