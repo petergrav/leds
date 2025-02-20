@@ -153,8 +153,9 @@ if __name__ == "__main__":
     #     except Exception as e:
     #         log.error(f"Error: {e}")
     #         break
-    import neofuncs
-    #neofuncs.neo_range(PI_PIN, MY_STRIP_LEN, color.GREEN, 24, 26)
+
+
     for i in range(24, 26):
         np[i] = color.GREEN
     np.show()
+    #off.animate()
