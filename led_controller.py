@@ -1,5 +1,5 @@
 import time
-from rpi_ws281x import PixelStrip, Color
+#from rpi_ws281x import PixelStrip, Color
 from neopixel import NeoPixel
 import board
 from adafruit_led_animation.animation import Animation
@@ -13,16 +13,16 @@ LED_COUNT = 26        # Number of LED pixels
 LED_PIN = 18         # GPIO pin connected to the pixels (18 uses PWM)
 LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800kHz)
 LED_DMA = 10          # DMA channel to use for generating signal
-LED_BRIGHTNESS = 255  # Set to 0-255 (max brightness)
+LED_BRIGHTNESS = 0.2  # Set to 0-1 (max brightness)
 LED_INVERT = False    # True to invert the signal
 LED_CHANNEL = 0       # Set to 1 for GPIOs 13, 19, 41, 45, or 53
 
 class LEDController:
     def __init__(self):
         # Initialize the LED strip
-        self.strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-        self.strip.begin()
-        self.neopixel = NeoPixel(board.D18, LED_COUNT, brightness=1.0, auto_write=False)
+        #self.strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+        #self.strip.begin()
+        self.neopixel = NeoPixel(pin=board.D18, n=LED_COUNT, bpp=3, brightness=LED_BRIGHTNESS, auto_write=False)
         # Animation definitions
         self.animation_types = {
             "off": lambda pixels: Solid(pixels, color=(0, 0, 0)),
@@ -80,7 +80,7 @@ class LEDController:
         """Turn off all LEDs and clean up."""
         self.neopixel.fill((0, 0, 0))
         self.neopixel.show()
-        self.strip.deinit()
+        self.neopixel.deinit()
 
 def main():
     # Simple test loop for standalone testing
