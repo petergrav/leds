@@ -30,7 +30,7 @@ RECONNECT_RATE = 2
 MAX_RECONNECT_COUNT = 12
 MAX_RECONNECT_DELAY = 60
 #parameters for LED strip
-MY_STRIP_LEN = 900
+MY_STRIP_LEN = 79
 PI_PIN = board.D18
 np = NeoPixel(PI_PIN, MY_STRIP_LEN, brightness=1, auto_write=False)
 current_message = 0
@@ -134,30 +134,30 @@ def executeAnimations(current_message):
             )
             animations.animate()
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-#     mqttc.on_connect = on_connect
-#     mqttc.on_message = on_message
-#     mqttc.on_disconnect = on_disconnect
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    mqttc.on_connect = on_connect
+    mqttc.on_message = on_message
+    mqttc.on_disconnect = on_disconnect
 
-#     mqttc.connect("10.169.84.20", 1883, 60)
-#     while True:
-#         executeAnimations(current_message)
-#         try:
-#             mqttc.loop()
-#         except KeyboardInterrupt:
-#             off.animate()
-#             log.info("Exiting")
-#             break
-#         except Exception as e:
-#             log.error(f"Error: {e}")
-#             break
+    mqttc.connect("10.169.84.20", 1883, 60)
+    while True:
+        executeAnimations(current_message)
+        try:
+            mqttc.loop()
+        except KeyboardInterrupt:
+            off.animate()
+            log.info("Exiting")
+            break
+        except Exception as e:
+            log.error(f"Error: {e}")
+            break
 
 
     # for i in range(24, 26):
     #     np[i] = color.GREEN
     # np.show()
-
-    solid.animate()
-    #off.animate()
+    # while True:
+    #     solid.animate()
+    #     #off.animate()
