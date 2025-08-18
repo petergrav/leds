@@ -19,8 +19,8 @@ def on_connect(client, userdata, flags, reason_code, properties):
     log.info(f"Connected to {mqttc.host} with result code {reason_code}")
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("LEDPattern")
-    log.info(f"Subscribed to 'LEDPattern' topic")
+    client.subscribe("spaceLogicLEDPattern")
+    log.info(f"Subscribed to 'spaceLogicLEDPattern' topic")
 
 # The callback for when a PUBLISH message is received from the server.
 
