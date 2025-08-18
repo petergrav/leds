@@ -17,10 +17,10 @@ HOSTNAME_CONFIG = {
         "LED_COUNT": 26,
         "LED_PIN": 18,
         "SEGMENTS": Enum("LEDSegment", {
-            "SEGMENT1": (0, 9),
-            "SEGMENT2": (10, 1),
-            "SEGMENT3": (20, 25),
-            "WHOLE_STRIP": (0, 25)
+            "SEGMENT1": (0, 10),
+            "SEGMENT2": (10, 20),
+            "SEGMENT3": (20, 26),
+            "WHOLE_STRIP": (0, 26)
         })
     },
     "raspberrypi2": {
@@ -56,8 +56,8 @@ class CustomSolid(Animation):
         super().__init__(pixel_object, speed=0, color=color, name=name)
         self.fill(color)
 
-    # def draw(self):
-    #     pass  # No need to update the color repeatedly
+    def draw(self):
+        pass  # No need to update the color repeatedly
 
     def show(self):
         self.fill(self.color)
@@ -80,11 +80,13 @@ class LEDController:
         
         # Animation definitions
         self.animation_types = {
-            "off": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end + 1), color=(0, 0, 0)),
-            "solid_red": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end + 1), color=(255, 0, 0)),
-            "rainbow": lambda pixels, start, end: Rainbow(PixelSubset(pixels, start, end + 1), speed=0.1, period=5),
-            "chase": lambda pixels, start, end: Chase(PixelSubset(pixels, start, end + 1), speed=0.05, size=3, spacing=6, color=(255, 255, 0)),
-            "comet": lambda pixels, start, end: Comet(PixelSubset(pixels, start, end + 1), speed=0.1, color=(0, 255, 255), tail_length=10)
+            "off": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end), color=(0, 0, 0)),
+            "solid_green": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end), color=(0, 255, 0)),
+            "solid_red": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end), color=(255, 0, 0)),
+            "solid_blue": lambda pixels, start, end: CustomSolid(PixelSubset(pixels, start, end), color=(0, 0, 255)),
+            "rainbow": lambda pixels, start, end: Rainbow(PixelSubset(pixels, start, end), speed=0.1, period=5),
+            "chase": lambda pixels, start, end: Chase(PixelSubset(pixels, start, end), speed=0.05, size=3, spacing=6, color=(255, 255, 0)),
+            "comet": lambda pixels, start, end: Comet(PixelSubset(pixels, start, end), speed=0.1, color=(0, 255, 255), tail_length=10)
         }
         
         # Dictionary to store animations for each segment
@@ -95,7 +97,7 @@ class LEDController:
         """Set all segments to 'off' as default."""
         for segment in self.LEDSegment:
             start_idx, end_idx = segment.value
-            self.animations[segment] = self.animation_types["off"](self.neopixel, start_idx, (end_idx + 1))
+            self.animations[segment] = self.animation_types["off"](self.neopixel, start_idx, end_idx)
 
     def set_animation(self, segment_name, pattern):
         """Set an animation for a predefined segment."""
@@ -133,9 +135,9 @@ def main():
     # Simple test loop for standalone testing
     controller = LEDController()
     try:
-        controller.set_animation("SEGMENT1", "solid_red")
-        # controller.set_animation("SEGMENT2", "chase")
-        # controller.set_animation("SEGMENT3", "comet")
+        #controller.set_animation("SEGMENT1", "solid_red")
+        #controller.set_animation("SEGMENT2", "solid_blue")
+        controller.set_animation("WHOLE_STRIP", "solid_green")
         while True:
             controller.run_animation()
             time.sleep(0.01)
