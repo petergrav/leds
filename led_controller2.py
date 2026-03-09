@@ -32,6 +32,15 @@ HOSTNAME_CONFIG = {
             "SEGMENT3": (20, 29)  # LEDs 20-29
         })
     },
+        "backAlley": {
+        "LED_COUNT": 26,
+        "LED_PIN": 18,
+        "SEGMENTS": Enum("LEDSegment", {
+            "WHOLE_STRIP": (0, 25),
+            "SEGMENT1": (0, 5) # LEDs 10-19
+            # "SEGMENT3": (20, 29)  # LEDs 20-29
+        })
+    },
     # Add more hostnames and configurations as needed
     "default": {
         "LED_COUNT": 60,
