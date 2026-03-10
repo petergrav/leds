@@ -113,7 +113,7 @@ if __name__ == "__main__":
     mqttc.on_connect = on_connect
     mqttc.on_message = on_message
 
-    mqttc.connect("10.169.84.20", 1883, 60)
+    mqttc.connect("10.169.85.116", 1883, 60)
     while True:
         executeAnimations(current_message)
         try:
